@@ -1,0 +1,19 @@
+$primaryColor: #aa14f0;
+$secondaryColor: #bc8cf2;
+$gray: #9e9e9e;
+$background: #eeeeee;
+
+@mixin signinSet($bg) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  color: #fff;
+  background: $bg;
+  font-size: 1.6rem;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  &:last-child {
+    margin: 0;
+  }
+}
