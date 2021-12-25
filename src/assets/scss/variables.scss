@@ -17,3 +17,36 @@ $background: #eeeeee;
     margin: 0;
   }
 }
+
+@mixin headSet() {
+  &__head {
+    width: 100%;
+    height: 240px;
+    position: relative;
+    &--img {
+      width: 100%;
+      height: 100%;
+      img {
+        width: inherit;
+        height: inherit;
+        object-fit: cover;
+      }
+    }
+    &--name {
+      display: flex;
+      align-items: flex-end;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      background: linear-gradient(
+        transparent 70%,
+        rgba($color: #000000, $alpha: 0.7) 100%
+      );
+      font-size: 2.4rem;
+      padding: 16px 24px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}

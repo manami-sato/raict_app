@@ -4,12 +4,13 @@ main.home
 	nav.home__nav
 		ul
 			li(v-for="(item,i) in nav",:key="item[i]").home__nav--item.homeNavActive {{item}}
-	div(v-for="i in 3").home__live
-		div.home__live--img
-			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${live.img}`")
-		div.home__live--ttl {{live.ttl}}
-		div.home__live--name {{live.name}}
-	Navigation(value="home",ref="nav")
+	router-link(v-for="(data,i) in res",:to="`/event/${i+1}`").home__event
+		div.home__event--img
+			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${data.img}`")
+		div.home__event--ttl {{data.ttl}}
+		div.home__event--name
+			div &#035;{{data.artistName}}
+	Navigation(value="Home",ref="nav")
 </template>
 
 <script>
@@ -23,6 +24,7 @@ export default {
   },
   data() {
     return {
+      res: [],
       nav: [
         "おすすめ",
         "お気に入り",
@@ -30,12 +32,16 @@ export default {
         "男性アイドル",
         "女性アイドル",
       ],
-      live: {
-        ttl: "ライブのタイトル",
-        name: "アーティスト",
-        img: "search_artists.png",
-      },
     };
+  },
+  mounted() {
+    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        this.res = json.event;
+      });
   },
 };
 </script>
@@ -62,7 +68,8 @@ export default {
       border-radius: 18px;
     }
   }
-  &__live {
+  &__event {
+    display: block;
     width: 90vw;
     margin: 0 auto 28px;
     font-weight: bold;
@@ -80,7 +87,14 @@ export default {
       margin: 12px 0 8px;
     }
     &--name {
+      display: flex;
       font-size: 1.3rem;
+      div {
+        margin-right: 8px;
+        &:last-of-type {
+          margin: 0;
+        }
+      }
     }
   }
 }

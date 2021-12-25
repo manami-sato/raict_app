@@ -6,7 +6,7 @@ main.notice
 			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${list.icon}`")
 		p.notice__list--msg {{list.msg}}
 		span.notice__list--date {{list.date}}日前
-	Navigation(value="notice",ref="nav")
+	Navigation(value="Notice",ref="nav")
 </template>
 
 <script>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       list: {
-        icon: "profile_icon.svg",
+        icon: "profile_icon.png",
         msg: "運営からのメッセージが届きます。こんな感じで届きます。応募したアーティストからもメッセージが届いたりします。",
         date: "6",
       },

@@ -2,7 +2,7 @@
 	main(v-bind:style="{minHeight:startHeight+`px`}").start
 		section.start__info
 			h1.start__info--logo
-				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_color.svg")
+				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_color.png")
 			div.start__info--txt raictへようこそ
 			p.start__info--description
 				|サインインするとすべての機能が<br>
@@ -37,12 +37,13 @@ export default {
   align-items: center;
   margin: 0 auto;
   &__info {
+    height: calc(100vh - 200px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    padding-bottom: 30%;
+    // padding-bottom: 30%;
     &--logo {
       width: 60%;
       img {

@@ -1,55 +1,65 @@
 <template lang="pug">
-	main(v-bind:style="{minHeight:startHeight+`px`}").signin
+	main(:style="{minHeight:startHeight+`px`}").signin
 		div.signin__head
-			div(v-on:click="flowBack",v-if="flowCount > 0").signin__head---back
-				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/start-back.svg",alt="back")
+			div(@click="c--",v-if="c > 0").signin__head--back
+				svg(version="1.1",xmlns="http://www.w3.org/2000/svg",xmlns:xlink="http://www.w3.org/1999/xlink",x="0px",y="0px",viewBox="0 0 10 18.8",style="enable-background:new 0 0 10 18.8;",xml:space="preserve")
+					path(d="M7.8,0L10,1.8L3.7,9.4L10,17l-2.2,1.8L0,9.4L7.8,0z")
 			h1.signin__head--logo
-				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_white.svg",alt="raict")
+				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_white.png",alt="raict")
 		div.signin__flow
-			div(v-for="(flow,i) in flowTtl",:key="i",v-bind:class="{flowOnCircle:flowCount >= i}").signin__flow--parts
-				p(v-bind:class="{flowOnTxt:flowCount == i}") step{{i+1}}
+			div(v-for="(flow,i) in ttl",:key="i",:class="{flowOnCircle:c >= i}").signin__flow--parts
+				p(:class="{flowOnTxt:c == i}") step{{i+1}}
 				div
-		h2(v-text="flowTtl[flowCount]").signin__ttl
-		//- 名前、アイコン
-		div(v-if="flowCount == 0").signin__contents
+		h2(v-text="ttl[c]").signin__ttl
+		//- 
+		//- 1.名前、アイコン
+		//- 
+		div(v-if="c == 0").signin__contents
 			div.signin__contents--file
 				form(enctype="multipart/form-data")
 					input(type="file",accept="image/*",capture="camera",@change="inputIcon",value="",name="upload")
-			div.signin__contents--name
+			div.signin__contents--form
 				p 名前／ニックネーム
 				form
-					input(type="text",placeholder="example",name="name",@change="inputFlag[0] == true")
-		//- 性別、生年月日
-		div(v-if="flowCount == 1").signin__contents
-			div.signin__contents--name
+					input(type="text",placeholder="example",name="name",@change="btnFlag = !btnFlag")
+		//- 
+		//- 2.性別、生年月日
+		//- 
+		div(v-if="c == 1").signin__contents
+			div.signin__contents--form
 				p 性別
 				form
-					select
+					select(@change="form1")
 						option(disabled,value="",selected) 選択してください
 						option(value="male") 男性
 						option(value="female") 女性
 						option(value="other") その他
 						option(value="noselected") 選択しない
-			div.signin__contents--name
+			div.signin__contents--form
 				p 生年月日
 				form
-					input(type="date")
-		//- お気に入りのアーティスト
-		div(v-if="flowCount == 2").signin__contents
-			div.signin__contents--artists
-				div(v-for="i in 6")
-					div.signin__contents--artists--icon
-						img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${favorite.img}`")
-					p.signin__contents--artists--name {{favorite.name}}
-		//- 結果
-		div(v-if="flowCount == 3").signin__completion
+					input(type="date",@change="form2")
+		//- 
+		//- 3.お気に入りのアーティスト
+		//- 
+		div(v-if="c == 2").signin__contents
+			div.signin__contents--artist
+				div(v-for="(data,i) in res",@click="artistActive(i)",:class="{artistActive:artistFlag}")
+					div.signin__contents--artist--icon
+						img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${data.img}`")
+					p.signin__contents--artist--name {{data.name}}
+		//- 
+		//- 4.結果
+		//- 
+		div(v-if="c == 3").signin__completion
 			div.signin__completion--icon
-				img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${favorite.img}`")
-			div.signin__completion--name {{favorite.name}}
+				img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${res[artistSelect].img}`")
+			div.signin__completion--name {{res[artistSelect].name}}
 			div.signin__completion--txt さっそく最新のライブを確認しよう！
-		div(@click="flowBtn").signin__btn
-			p {{flowBtnTxt[flowCount]}}
-			router-link(:to="{name:'Home'}",v-if="flowLink").signin__btn--link
+		//- 
+		div(@click="btnClick",:class="{btnActive:btnFlag}").signin__btn
+			p {{btnTxt[c]}}
+			router-link(:to="{name:'Home'}",v-if="c == 3").signin__btn--link
 </template>
 
 <script>
@@ -58,12 +68,12 @@ export default {
   name: "Start",
   data() {
     return {
+      res: [],
       imgPath: "",
-      inputFlag: [false, false, false, false],
+      btnFlag: false,
       startHeight: 0,
-      flowCount: 0,
-      flowFlag: false,
-      flowTtl: [
+      c: 0,
+      ttl: [
         `写真とニックネームを
 設定する`,
         `性別と年齢を
@@ -73,31 +83,59 @@ export default {
         `アカウント登録が
 完了しました！`,
       ],
-      flowBtnTxt: ["次へ", "次へ", "スキップ", "ライブを確認する"],
+      btnTxt: ["次へ", "次へ", "次へ", "ライブを確認する"],
       flowLink: false,
-      favorite: {
-        img: "search_artists.png",
-        name: "須田景凪",
-      },
+      artistCount: 0,
+      formFlag: [false, false],
+      artistFlag: false,
+      artistSelect: 0,
     };
   },
   methods: {
-    flowBtn() {
-      this.flowCount++;
-      if (this.flowCount == 3) {
-        this.flowLink = true;
-        console.log("Ok");
+    btnClick() {
+      this.btnFlag = !this.btnFlag;
+      if (this.c < 3) {
+        this.c++;
       }
-    },
-    flowBack() {
-      this.flowCount--;
+      if (this.c == 3) {
+        this.btnFlag = true;
+      }
     },
     inputIcon(value) {
       this.imgPath = value.target.value;
       // console.log(this.imgPath);
     },
+    form1() {
+      this.formFlag[0] = !this.formFlag[0];
+      if (this.formFlag[0] == true && this.formFlag[1] == true) {
+        this.btnFlag = true;
+      } else {
+        this.btnFlag = false;
+      }
+    },
+    form2() {
+      this.formFlag[1] = !this.formFlag[1];
+      if (this.formFlag[0] == true && this.formFlag[1] == true) {
+        this.btnFlag = true;
+      } else {
+        this.btnFlag = false;
+      }
+    },
+    artistActive(i) {
+      this.artistCount++;
+      this.artistFlag = !this.artistFlag;
+      this.artistSelect = i;
+      this.btnFlag = !this.btnFlag;
+    },
   },
   mounted() {
+    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        this.res = json.artist;
+      });
     this.startHeight = common.height - common.footHeight;
   },
 };
@@ -117,16 +155,20 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 16px;
     position: relative;
     &--back {
       width: 10px;
       position: absolute;
       left: 0;
+      path {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #ffffff;
+      }
     }
     &--logo {
-      width: 56px;
-      height: 32px;
+      width: 80px;
+      height: 64px;
       img {
         width: 100%;
         height: 100%;
@@ -194,11 +236,12 @@ export default {
     font-size: 2.4rem;
     font-weight: normal;
     text-align: center;
-    margin: 24px 0 40px;
+    margin: 24px 0 32px;
     white-space: pre-wrap;
   }
   &__contents {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     &--icon {
       width: 88px;
       height: 88px;
@@ -210,22 +253,27 @@ export default {
         object-fit: cover;
       }
     }
-    &--name {
+    &--form {
       p {
         font-size: 1.2rem;
-        margin-bottom: 16px;
+        margin-bottom: 8px;
       }
       form {
         font-size: 1.6rem;
         width: 100%;
         border-bottom: 1px solid #fff;
-        input {
-          width: 100%;
-          height: 32px;
-          &::placeholder {
-            color: rgba($color: #fff, $alpha: 0.5);
-          }
+      }
+      input,
+      select {
+        width: 100%;
+        height: 32px;
+        background: transparent;
+        &::placeholder {
+          color: rgba($color: #fff, $alpha: 0.5);
         }
+      }
+      &:last-of-type {
+        margin-top: 24px;
       }
     }
     &--file {
@@ -260,7 +308,7 @@ export default {
         bottom: 0;
       }
     }
-    &--artists {
+    &--artist {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
@@ -306,13 +354,14 @@ export default {
     align-items: center;
     width: 80%;
     height: 48px;
-    color: #000;
-    background: #fff;
+    color: #fff;
+    border: 1px solid #fff;
     border-radius: 10px;
-    font-weight: bold;
     font-size: 1.6rem;
-    margin: 40px auto 0;
+    margin: 32px auto 0;
     position: relative;
+    opacity: 0.4;
+    pointer-events: none;
     &--link {
       display: block;
       width: 100%;
@@ -325,8 +374,8 @@ export default {
   }
   &__completion {
     &--icon {
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       border: 4px solid #fff;
       border-radius: 50%;
       margin: 0 auto;
@@ -360,5 +409,20 @@ export default {
       background: $primaryColor;
     }
   }
+}
+.btnActive {
+  color: $primaryColor;
+  background: #fff;
+  font-weight: bold;
+  opacity: 1;
+  pointer-events: auto;
+}
+.artistActive {
+  .signin__contents--artist--icon {
+    border: 5px solid $primaryColor;
+  }
+  // .signin__contents--artist--name {
+  //   color: $primaryColor;
+  // }
 }
 </style>

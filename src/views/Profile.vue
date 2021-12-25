@@ -3,14 +3,14 @@ main.profile
 	Head(value="プロフィール",ref="head")
 	div.profile__data
 		div.profile__data--icon
-			img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/profile_icon.svg")
+			img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/profile_icon.png")
 		div.profile__data--name すだ
 	div(v-for="(link,i) in links",:key="link[i]").profile__link
 		span.profile__link--ttl {{link.ttl}}
 		ul.profile__link--content
 			li(v-for="(content,i) in links[i].contents",:key="content[i]")
 				a(href="#") {{content}}
-	Navigation(value="profile",ref="nav")
+	Navigation(value="Profile",ref="nav")
 </template>
 
 <script>
