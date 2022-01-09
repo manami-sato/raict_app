@@ -5,7 +5,7 @@
 				svg(version="1.1",xmlns="http://www.w3.org/2000/svg",xmlns:xlink="http://www.w3.org/1999/xlink",x="0px",y="0px",viewBox="0 0 10 18.8",style="enable-background:new 0 0 10 18.8;",xml:space="preserve")
 					path(d="M7.8,0L10,1.8L3.7,9.4L10,17l-2.2,1.8L0,9.4L7.8,0z")
 			h1.signin__head--logo
-				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_white.png",alt="raict")
+				img(:src="`${path}img/logo_white.png`",alt="raict")
 		div.signin__flow
 			div(v-for="(flow,i) in ttl",:key="i",:class="{flowOnCircle:c >= i}").signin__flow--parts
 				p(:class="{flowOnTxt:c == i}") step{{i+1}}
@@ -15,7 +15,7 @@
 		//- 1.名前、アイコン
 		//- 
 		div(v-if="c == 0").signin__contents
-			div.signin__contents--file
+			div(:style="{backgroundImage:'url(' + path + 'img/signin_icon.png)'}").signin__contents--file
 				form(enctype="multipart/form-data")
 					input(type="file",accept="image/*",capture="camera",@change="inputIcon",value="",name="upload")
 			div.signin__contents--form
@@ -46,14 +46,14 @@
 			div.signin__contents--artist
 				div(v-for="(data,i) in res",@click="artistActive(i)",:class="{artistActive:artistFlag}")
 					div.signin__contents--artist--icon
-						img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${data.img}`")
+						img(:src="`${path}img/${data.img}`")
 					p.signin__contents--artist--name {{data.name}}
 		//- 
 		//- 4.結果
 		//- 
 		div(v-if="c == 3").signin__completion
 			div.signin__completion--icon
-				img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${res[artistSelect].img}`")
+				img(:src="`${path}img/${res[artistSelect].img}`")
 			div.signin__completion--name {{res[artistSelect].name}}
 			div.signin__completion--txt さっそく最新のライブを確認しよう！
 		//- 
@@ -64,8 +64,10 @@
 
 <script>
 import common from "@/assets/js/common.js";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Start",
+  mixins: [Mixin],
   data() {
     return {
       res: [],
@@ -129,7 +131,7 @@ export default {
     },
   },
   mounted() {
-    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+    fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })
@@ -279,8 +281,7 @@ export default {
     &--file {
       width: 88px;
       height: 88px;
-      background: url("https://click.ecc.ac.jp/ecc/msatou/raict_app/img/signin_icon.png")
-        no-repeat;
+      background-repeat: no-repeat;
       background-size: cover;
       border: 4px solid #fff;
       border-radius: 50%;

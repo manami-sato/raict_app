@@ -3,7 +3,7 @@ main.profile
 	Head(value="プロフィール",ref="head")
 	div.profile__data
 		div.profile__data--icon
-			img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/profile_icon.png")
+			img(:src="`${path}img/profile_icon.png`")
 		div.profile__data--name すだ
 	div(v-for="(link,i) in links",:key="link[i]").profile__link
 		span.profile__link--ttl {{link.ttl}}
@@ -16,6 +16,7 @@ main.profile
 <script>
 import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
+import Mixin from "@/mixins/Mixin.vue";
 // import common from "@/assets/js/common.js";
 export default {
   name: "Profile",
@@ -23,6 +24,7 @@ export default {
     Head,
     Navigation,
   },
+  mixins: [Mixin],
   data() {
     return {
       links: [

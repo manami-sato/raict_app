@@ -5,7 +5,7 @@
         svg(version="1.1",xmlns="http://www.w3.org/2000/svg",xmlns:xlink="http://www.w3.org/1999/xlink",x="0px",y="0px",viewBox="0 0 10 18.8",style="enable-background:new 0 0 10 18.8;",xml:space="preserve")
           path(d="M7.8,0L10,1.8L3.7,9.4L10,17l-2.2,1.8L0,9.4L7.8,0z")
       h1.signin__head--logo
-        img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_white.png",alt="raict")
+        img(:src="`${path}img/logo_white.png`",alt="raict")
     div.signin__flow
       div(v-for="(flow,i) in flowTtl",:key="i",:class="{flowOnCircle:value >= i}").signin__flow--parts
         p(v-bind:class="{flowOnTxt:value == i}") step{{i+1}}
@@ -14,9 +14,11 @@
 </template>
 
 <script>
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Start",
   props: ["value"],
+  mixins: [Mixin],
   data() {
     return {
       flowTtl: [

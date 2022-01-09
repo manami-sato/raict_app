@@ -4,9 +4,9 @@ main.home
 	nav.home__nav
 		ul
 			li(v-for="(item,i) in nav",:key="item[i]").home__nav--item.homeNavActive {{item}}
-	router-link(v-for="(data,i) in res",:to="`/event/${i+1}`").home__event
+	router-link(v-for="(data,i) in res",:to="`${routerPath}event/${i+1}`").home__event
 		div.home__event--img
-			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${data.img}`")
+			img(:src="`${path}img/${data.img}`")
 		div.home__event--ttl {{data.ttl}}
 		div.home__event--name
 			div &#035;{{data.artistName}}
@@ -16,12 +16,14 @@ main.home
 <script>
 import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Home",
   components: {
     Head,
     Navigation,
   },
+  mixins: [Mixin],
   data() {
     return {
       res: [],
@@ -35,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+    fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })

@@ -10,6 +10,7 @@ import Notice from "../views/Notice.vue";
 import Profile from "../views/Profile.vue";
 import Artist from "../views/Artist.vue";
 import Event from "../views/Event.vue";
+import Ticket from "../views/Ticket.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueHead);
@@ -63,6 +64,12 @@ const routes = [
     path: `${route}` + `event/:eventId`,
     name: "Event",
     component: Event,
+    props: (route) => ({ eventId: Number(route.params.eventId) }),
+  },
+  {
+    path: `${route}` + `live/:eventId`,
+    name: "Ticket",
+    component: Ticket,
     props: (route) => ({ eventId: Number(route.params.eventId) }),
   },
 ];

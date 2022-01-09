@@ -2,52 +2,27 @@
 	section.lives
 		h2.lives__headline その他のライブ
 		div.lives__img
-			//- Slick(ref="slick",:options="slickOptions").slick-outer.lives__img
-			//- router-link(v-for="(img,i) in afterLiveImg",:key="img[i]",:to="`/search/${value}/${i+2}`").slick-img
-			//- 	img(:src="img")
 </template>
 
 <script>
-// import jQuery from "jquery";
-// import Slick from "vue-slick";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Lives",
-  // components: {
-  //   jQuery,
-  //   Slick,
-  // },
   props: ["value"],
+  mixins: [Mixin],
   data() {
     return {
       res: [],
       afterLiveImg: [],
-      // live: 0,
-      // slickOptions: {
-      //   arrows: false, //スライドの矢印ボタン
-      //   dots: true, //ドットマーク
-      //   autoplay: true, //自動スライド
-      //   autoplaySpeed: 4000, //自動スライド間隔(ms)
-      //   pauseOnFocus: false, //ドットマークを押すとスライドショーが止まるのを防ぐ
-      //   prevArrow: '<button type="button" class="slick-prev"></button>', //ひとつ前の画像に戻る矢印ボタン
-      //   nextArrow: '<button type="button" class="slick-next"></button>', //ひとつ先の画像に進む矢印ボタン
-      // },
     };
   },
   mounted() {
-    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+    fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })
       .then((json) => {
         this.res = json.event[this.value];
-        // this.live = this.res.live.length;
-        // for (let i = 0; i < this.live; i++) {
-        //   if (i > 0) {
-        //     this.afterLiveImg.push(
-        //       `https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${this.res.live[i].img}`
-        //     );
-        //   }
-        // }
       });
   },
 };

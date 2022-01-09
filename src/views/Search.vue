@@ -7,10 +7,10 @@ main.search
 		header.search__head
 			h1.search__head--txt アーティスト
 		div.search__artist
-			router-link(v-for="(data,i) in res",:key="data.name",:to="`/search/${i+1}`")
-				div.search__artist--img
-					img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${data.img}`")
-				h2.search__artist--name {{data.name}}
+			router-link(v-for="(data,i) in res",:key="data.name",:to="`${routerPath}search/${i+1}`").search__artist--link
+				div.search__artist--link--img
+					img(:src="`${path}img/${data.img}`")
+				h2.search__artist--link--name {{data.name}}
 		div(v-if="formFlag",@click="formBlur").search__bg
 	Navigation(value="Search",ref="nav")
 </template>
@@ -18,12 +18,14 @@ main.search
 <script>
 import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Search",
   components: {
     Head,
     Navigation,
   },
+  mixins: [Mixin],
   data() {
     return {
       res: [],
@@ -39,7 +41,7 @@ export default {
     },
   },
   mounted() {
-    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+    fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })
@@ -60,6 +62,18 @@ export default {
     width: 90vw;
     margin: 0 auto;
     padding-bottom: 8px;
+    position: relative;
+    &::before {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      background: url("https://click.ecc.ac.jp/ecc/msatou/raict_app/img/search_icon.png")
+        no-repeat;
+      background-size: contain;
+      position: absolute;
+      left: 16px;
+    }
     + div {
       position: relative;
     }
@@ -70,17 +84,7 @@ export default {
       background: $background;
       font-size: 1.6rem;
       border-radius: 8px;
-      padding: 8px 16px;
-      position: relative;
-      &::before {
-        content: "";
-        display: block;
-        width: 32px;
-        height: 32px;
-        background: url("https://click.ecc.ac.jp/ecc/msatou/raict_app/img/search_icon.svg");
-        position: absolute;
-        left: 24px;
-      }
+      padding: 8px 8px 8px 40px;
       &::placeholder {
         color: $gray;
       }
@@ -104,23 +108,23 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    article {
+    &--link {
       width: 48%;
-    }
-    &--img {
-      width: 100%;
-      height: 104px;
-      border-radius: 4px;
-      overflow: hidden;
-      img {
+      &--img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: 104px;
+        border-radius: 4px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
-    }
-    &--name {
-      font-size: 1.2rem;
-      margin: 8px 0 20px;
+      &--name {
+        font-size: 1.2rem;
+        margin: 8px 0 20px;
+      }
     }
   }
   &__bg {

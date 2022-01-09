@@ -72,7 +72,6 @@ export default {
       display: block;
       width: 100%;
       color: $gray;
-      // font-size: 0.9rem;
       margin: 0 auto;
       > * {
         display: flex;
@@ -80,6 +79,7 @@ export default {
       }
     }
     svg {
+      display: block;
       width: 24px;
       height: 24px;
       fill: none;

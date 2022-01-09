@@ -2,7 +2,7 @@
 main.event
 	header.event__head
 		div.event__head--img
-			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${res.img}`")
+			img(:src="`${path}img/${res.img}`")
 		Back
 		section.event__info
 			h1.event__info--ttl {{res.ttl}}
@@ -26,12 +26,14 @@ import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
 import Back from "@/components/Back.vue";
 import Lives from "@/components/Lives.vue";
+import Mixin from "@/mixins/Mixin.vue";
 // import common from "@/assets/js/common.js";
 export default {
   name: "Event",
   props: {
     eventId: Number,
   },
+  mixins: [Mixin],
   components: {
     Head,
     Navigation,
@@ -54,7 +56,7 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.eventId - 1;
-    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+    fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })

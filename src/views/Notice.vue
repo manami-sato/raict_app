@@ -3,7 +3,7 @@ main.notice
 	Head(value="通知",ref="head")
 	div(v-for="i in 4").notice__list
 		div.notice__list--icon
-			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${list.icon}`")
+			img(:src="`${path}img/${list.icon}`")
 		p.notice__list--msg {{list.msg}}
 		span.notice__list--date {{list.date}}日前
 	Navigation(value="Notice",ref="nav")
@@ -12,12 +12,14 @@ main.notice
 <script>
 import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Notice",
   components: {
     Head,
     Navigation,
   },
+  mixins: [Mixin],
   data() {
     return {
       list: {

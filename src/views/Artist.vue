@@ -2,12 +2,12 @@
 main.artist
 	header.artist__head
 		div.artist__head--img
-			img(:src="`https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${res1.img}`")
+			img(:src="`${path}img/${res1.img}`")
 		h1.artist__head--name {{res1.name}}
 		Back
 	section.artist__live
 		h2.artist__live--headline 次のライブ
-		router-link(:to="`/event/${eventLink}`")
+		router-link(:to="`${routerPath}event/${eventLink}`")
 			div.artist__live--img
 				img(:src="resentLiveImg")
 			h3.artist__live--ttl {{resentLiveTtl}}
@@ -20,8 +20,10 @@ import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
 import Back from "@/components/Back.vue";
 import Lives from "@/components/Lives.vue";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "artist",
+  mixins: [Mixin],
   components: {
     Head,
     Navigation,
@@ -45,7 +47,7 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.artistId - 1;
-    fetch("https://click.ecc.ac.jp/ecc/msatou/raict_app/products.php")
+    fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })
@@ -57,7 +59,7 @@ export default {
             this.event.push(this.res2[i]);
           }
         }
-        this.resentLiveImg = `https://click.ecc.ac.jp/ecc/msatou/raict_app/img/${this.event[0].img}`;
+        this.resentLiveImg = `${this.path}img/${this.event[0].img}`;
         this.resentLiveTtl = this.event[0].ttl;
         this.live = this.event.length;
         this.eventLink = this.event[0].eventId;

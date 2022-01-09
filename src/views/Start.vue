@@ -2,7 +2,7 @@
 	main(v-bind:style="{minHeight:startHeight+`px`}").start
 		section.start__info
 			h1.start__info--logo
-				img(src="https://click.ecc.ac.jp/ecc/msatou/raict_app/img/logo_color.png")
+				img(:src="`${path}img/logo_color.png`")
 			div.start__info--txt raictへようこそ
 			p.start__info--description
 				|サインインするとすべての機能が<br>
@@ -15,8 +15,10 @@
 
 <script>
 import common from "@/assets/js/common.js";
+import Mixin from "@/mixins/Mixin.vue";
 export default {
   name: "Start",
+  mixins: [Mixin],
   data() {
     return {
       startHeight: 0,
