@@ -1,5 +1,5 @@
 <template lang="pug">
-	main(v-bind:style="{minHeight:startHeight+`px`}").start
+	main(:style="{minHeight:startHeight+`px`}").start
 		section.start__info
 			h1.start__info--logo
 				img(:src="`${path}img/logo_color.png`")
@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.startHeight = common.height - common.footHeight;
+    this.startHeight = common.height;
   },
 };
 </script>

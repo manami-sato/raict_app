@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import common from "@/assets/js/common.js";
 import Mixin from "@/mixins/Mixin.vue";
+import common from "@/assets/js/common.js";
 export default {
   name: "Start",
   mixins: [Mixin],
@@ -138,7 +138,7 @@ export default {
       .then((json) => {
         this.res = json.artist;
       });
-    this.startHeight = common.height - common.footHeight;
+    this.startHeight = common.height;
   },
 };
 </script>

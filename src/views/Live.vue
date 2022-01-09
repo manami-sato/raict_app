@@ -1,7 +1,7 @@
 <template lang="pug">
 main.live
 	h1.live__headline ようこそ！あなたの<br>参加しているライブです
-	router-link(v-for="(data,i) in res",:to="`${routerPath}live/${i+1}`").live__event
+	router-link(v-for="(data,i) in res",:to="{name:'Ticket',params:{ id: `${i}`}}").live__event
 		div.live__event--img
 			img(:src="`${path}img/${data.img}`")
 		div.live__event--ttl {{data.ttl}}
@@ -14,7 +14,6 @@ main.live
 import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
 import Mixin from "@/mixins/Mixin.vue";
-// import common from "@/assets/js/common.js";
 export default {
   name: "Live",
   components: {

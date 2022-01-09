@@ -5,13 +5,13 @@
   margin: 0;
 }
 html {
-  height: -webkit-fill-available;
+  // height: -webkit-fill-available;
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
 body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  // min-height: 100vh;
+  // min-height: -webkit-fill-available;
   color: #424242;
   font-family: sans-serif;
 }

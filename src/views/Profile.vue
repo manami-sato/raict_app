@@ -1,5 +1,5 @@
 <template lang="pug">
-main.profile
+main(:style="{minHeight:profileHeight+`px`}").profile
 	Head(value="プロフィール",ref="head")
 	div.profile__data
 		div.profile__data--icon
@@ -17,7 +17,7 @@ main.profile
 import Head from "@/components/Head.vue";
 import Navigation from "@/components/Navigation.vue";
 import Mixin from "@/mixins/Mixin.vue";
-// import common from "@/assets/js/common.js";
+import common from "@/assets/js/common.js";
 export default {
   name: "Profile",
   components: {
@@ -41,7 +41,11 @@ export default {
           contents: ["ログアウト"],
         },
       ],
+      profileHeight: 0,
     };
+  },
+  mounted() {
+    this.profileHeight = common.height;
   },
 };
 </script>

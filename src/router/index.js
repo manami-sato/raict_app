@@ -67,10 +67,10 @@ const routes = [
     props: (route) => ({ eventId: Number(route.params.eventId) }),
   },
   {
-    path: `${route}` + `live/:eventId`,
+    path: `${route}` + `ticket`,
     name: "Ticket",
     component: Ticket,
-    props: (route) => ({ eventId: Number(route.params.eventId) }),
+    // props: (route) => ({ eventId: Number(route.params.eventId) }),
   },
 ];
 

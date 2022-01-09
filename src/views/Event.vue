@@ -27,7 +27,6 @@ import Navigation from "@/components/Navigation.vue";
 import Back from "@/components/Back.vue";
 import Lives from "@/components/Lives.vue";
 import Mixin from "@/mixins/Mixin.vue";
-// import common from "@/assets/js/common.js";
 export default {
   name: "Event",
   props: {
