@@ -138,7 +138,7 @@ export default {
       .then((json) => {
         this.res = json.artist;
       });
-    this.startHeight = common.height;
+    this.startHeight = common.startHeight;
   },
 };
 </script>

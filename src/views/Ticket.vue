@@ -1,8 +1,8 @@
 <template lang="pug">
 main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touchmove="ticketTouchMove",@touchend="ticketTouchEnd",ref="pageX").ticket
 	Back
-	div(ref="ticketImg",:class="{ticketTransition:transitionFlag}").ticket__img
-		div(v-for="(data,i) in res").ticket__img--list
+	ul(:class="{ticketTransition:transitionFlag}",ref="ticketImg").ticket__img
+		li(v-for="(data,i) in res").ticket__img--list
 			img(:src="`${path}img/${data.img}`")
 	div.ticket__announce
 		p.ticket__announce--txt 横にスワイプでライブに参加！
@@ -84,7 +84,6 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id;
-    console.log(this.id);
     this.pageX = this.$refs.pageX.clientWidth;
     fetch(`${this.productsData}`)
       .then((res) => {
@@ -94,10 +93,17 @@ export default {
         this.res = json.event;
       });
     this.ticketHeight = common.height;
+    // this.$refs.ticketImg.style.transform = `translateX(${
+    //   this.id * this.pageX
+    // }px)`;
+    // console.log(this.$refs.ticketImg.style.transform);
+    // console.log(this.$refs.ticketImg);
+  },
+  updated() {
+    console.log(this.id * this.pageX);
     this.$refs.ticketImg.style.transform = `translateX(${
       this.id * this.pageX
     }px)`;
-    console.log(this.$refs.ticketImg.style.transform);
   },
 };
 </script>
@@ -108,16 +114,38 @@ export default {
   background: linear-gradient(135deg, #eead92 0%, #6018dc 100%);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   // width: 100vw;
   // overflow: hidden;
   &__img {
     display: flex;
+    // justify-content: flex-end;
     // transition: 0.5s transform;
     &--list {
       width: 100vw;
       height: 240px;
+      &:nth-of-type(1) {
+        border: tomato 5px solid;
+      }
+      &:nth-of-type(2) {
+        border: skyblue 5px solid;
+      }
+      &:nth-of-type(3) {
+        border: green 5px solid;
+      }
+      &:nth-of-type(4) {
+        border: yellow 5px solid;
+      }
+      &:nth-of-type(5) {
+        border: purple 5px solid;
+      }
+      &:nth-of-type(6) {
+        border: black 5px solid;
+      }
+      &:nth-of-type(7) {
+        border: pink 5px solid;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -127,11 +155,13 @@ export default {
   }
   &__announce {
     &--txt {
+      width: 100vw;
       color: #fff;
       font-weight: bold;
       font-size: 2.4rem;
       margin: 16px 0;
       position: relative;
+      text-align: center;
     }
     &--pictogram {
       margin: auto;

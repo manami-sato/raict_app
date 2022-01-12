@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.startHeight = common.height;
+    this.startHeight = common.startHeight;
   },
 };
 </script>
