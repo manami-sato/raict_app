@@ -2,11 +2,11 @@
 main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touchmove="ticketTouchMove",@touchend="ticketTouchEnd",ref="pageX").ticket
 	Back
 	ul(:class="{ticketTransition:transitionFlag}",ref="ticketImg").ticket__img
-		li(v-for="(data,i) in res").ticket__img--list
+		li(v-for="(data,i) in res",ref="ticketImgList").ticket__img--list
 			img(:src="`${path}img/${data.img}`")
 	div.ticket__announce
 		p.ticket__announce--txt 横にスワイプでライブに参加！
-		p.ticket__announce--pictogram
+		p(ref="pictogram",v-if="pictogramFlag").ticket__announce--pictogram
 			svg(viewBox="0 0 178 140",xmlns="http://www.w3.org/2000/svg")
 				g(clip-path="url(#clip0_163_892)")
 					path(d="M8.61563 25.4604H68.0566V20.7439H8.61563L27.5183 4.12628C27.751 3.91982 27.9407 3.66963 28.0765 3.39001C28.2124 3.11038 28.2917 2.80679 28.31 2.49657C28.3283 2.18635 28.2852 1.87557 28.1831 1.58197C28.081 1.28838 27.9221 1.01772 27.7152 0.78546C27.5083 0.553195 27.2577 0.363869 26.9775 0.228292C26.6973 0.092715 26.3931 0.0135431 26.0823 -0.00470532C25.7715 -0.0229538 25.4601 0.0200781 25.1659 0.121936C24.8717 0.223794 24.6006 0.382483 24.3678 0.588941L0.786781 21.3335C0.53536 21.5548 0.333999 21.8269 0.196074 22.1319C0.0581481 22.4368 -0.0131836 22.7676 -0.0131836 23.1021C-0.0131836 23.4367 0.0581481 23.7675 0.196074 24.0724C0.333999 24.3773 0.53536 24.6495 0.786781 24.8708L24.4151 45.6311C24.8499 46.0138 25.4106 46.2236 25.9903 46.2206C26.3246 46.2222 26.6554 46.1529 26.9609 46.0174C27.2664 45.8819 27.5396 45.6832 27.7624 45.4345C28.1755 44.9652 28.3851 44.3515 28.3452 43.7281C28.3053 43.1047 28.0193 42.5225 27.5498 42.1094L8.61563 25.4604Z")
@@ -43,6 +43,7 @@ export default {
       moveX: 0,
       endX: 0,
       transitionFlag: false,
+      pictogramFlag: true,
     };
   },
   methods: {
@@ -53,32 +54,40 @@ export default {
       this.moveX = ev2.changedTouches[0].pageX - this.startX;
     },
     ticketTouchEnd() {
-      console.log(this.id);
       if (!this.transitionFlag) {
         this.transitionFlag = !this.transitionFlag;
       }
-      if (this.moveX > 10) {
-        console.log("右スワイプ");
-        this.id++;
-        if (this.id == this.res.length - 1) {
-          this.$refs.ticketImg.style.transform = `translateX(0)`;
-          this.id = 0;
-        } else {
-          this.$refs.ticketImg.style.transform = `translateX(${this.pageX}px)`;
-        }
-      } else if (this.moveX < -10) {
-        console.log("左スワイプ");
+      if (this.moveX > 10 && this.id > 0) {
         this.id--;
-        if (this.id == 0) {
-          this.$refs.ticketImg.style.transform = `translateX(${
-            this.res.length * this.pageX
-          }px)`;
-          this.id = this.res.length - 1;
-        } else {
-          this.$refs.ticketImg.style.transform = `translateX(-${this.pageX}px)`;
-        }
-      } else {
-        console.log("なし");
+        this.$refs.ticketImg.style.transform = `translateX(${
+          -this.id * this.pageX
+        }px)`;
+        // if (this.id == 0) {
+        //   let copyEl =
+        //     this.$refs.ticketImgList[this.res.length - 1].cloneNode(true);
+        //   this.$refs.ticketImg.prepend(copyEl);
+        // } else if (this.id < 0) {
+        //   console.log(this.transitionFlag);
+        //   this.transitionFlag = !this.transitionFlag;
+        //   this.id = this.res.length - 1;
+        //   this.$refs.ticketImg.style.transform = `translateX(${
+        //     -this.id * this.pageX
+        //   }px)`;
+        // }
+      } else if (this.moveX < -10 && this.id < this.res.length - 1) {
+        this.id++;
+        this.$refs.ticketImg.style.transform = `translateX(${
+          -this.id * this.pageX
+        }px)`;
+        // if (this.id == this.res.length - 1) {
+        //   let copyEl = this.$refs.ticketImgList[0].cloneNode(true);
+        //   this.$refs.ticketImg.appendChild(copyEl);
+        // } else if (this.id == this.res.length) {
+        //   console.log(this.transitionFlag);
+        //   this.transitionFlag = !this.transitionFlag;
+        //   this.id = 0;
+        //   this.$refs.ticketImg.style.transform = `translateX(${-this.pageX}px)`;
+        // }
       }
     },
   },
@@ -93,17 +102,15 @@ export default {
         this.res = json.event;
       });
     this.ticketHeight = common.height;
-    // this.$refs.ticketImg.style.transform = `translateX(${
-    //   this.id * this.pageX
-    // }px)`;
-    // console.log(this.$refs.ticketImg.style.transform);
-    // console.log(this.$refs.ticketImg);
-  },
-  updated() {
-    console.log(this.id * this.pageX);
     this.$refs.ticketImg.style.transform = `translateX(${
-      this.id * this.pageX
+      -this.id * this.pageX
     }px)`;
+    let pictogramDisplay = () => {
+      if (this.pictogramFlag) {
+        this.pictogramFlag = !this.pictogramFlag;
+      }
+    };
+    setTimeout(pictogramDisplay, 2200);
   },
 };
 </script>
@@ -116,36 +123,13 @@ export default {
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  // width: 100vw;
-  // overflow: hidden;
+  width: 100vw;
+  overflow: hidden;
   &__img {
     display: flex;
-    // justify-content: flex-end;
-    // transition: 0.5s transform;
     &--list {
       width: 100vw;
       height: 240px;
-      &:nth-of-type(1) {
-        border: tomato 5px solid;
-      }
-      &:nth-of-type(2) {
-        border: skyblue 5px solid;
-      }
-      &:nth-of-type(3) {
-        border: green 5px solid;
-      }
-      &:nth-of-type(4) {
-        border: yellow 5px solid;
-      }
-      &:nth-of-type(5) {
-        border: purple 5px solid;
-      }
-      &:nth-of-type(6) {
-        border: black 5px solid;
-      }
-      &:nth-of-type(7) {
-        border: pink 5px solid;
-      }
       img {
         width: 100%;
         height: 100%;
@@ -168,6 +152,8 @@ export default {
       position: absolute;
       right: 0;
       left: 0;
+      pointer-events: none;
+      animation: pictogramAnimation 2s infinite, pictogramFadeOut 0.7s 1.5s;
       svg {
         display: block;
         width: 126px;
@@ -188,5 +174,26 @@ export default {
 }
 .ticketTransition {
   transition: 0.5s transform;
+}
+@keyframes pictogramAnimation {
+  0% {
+    transform: translateX(20px);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
+@keyframes pictogramFadeOut {
+  0% {
+    opacity: 1;
+    display: block;
+  }
+  100% {
+    opacity: 0;
+    display: block;
+  }
 }
 </style>

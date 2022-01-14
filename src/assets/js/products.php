@@ -11,21 +11,25 @@ $products = [
 			"artistId" => "1",
 			"name" => "ryuzie",
 			"img" => "search_artist_1.png",
+			"done" => false,
 		],
 		[
 			"artistId" => "2",
 			"name" => "たなかあきお",
 			"img" => "search_artist_3.png",
+			"done" => false,
 		],
 		[
 			"artistId" => "3",
 			"name" => "坂倉正樹",
 			"img" => "search_artist_4.jpg",
+			"done" => false,
 		],
 		[
 			"artistId" => "4",
 			"name" => "御三家",
 			"img" => "search_artist_2.png",
+			"done" => false,
 		],
 	],
 	"event" => [

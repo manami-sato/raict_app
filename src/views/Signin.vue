@@ -44,7 +44,7 @@
 		//- 
 		div(v-if="c == 2").signin__contents
 			div.signin__contents--artist
-				div(v-for="(data,i) in res",@click="artistActive(i)",:class="{artistActive:artistFlag}")
+				div(v-for="(data,i) in res",@click="artistActive(i)",:class="{artistActive:data.done}")
 					div.signin__contents--artist--icon
 						img(:src="`${path}img/${data.img}`")
 					p.signin__contents--artist--name {{data.name}}
@@ -86,11 +86,9 @@ export default {
 完了しました！`,
       ],
       btnTxt: ["次へ", "次へ", "次へ", "ライブを確認する"],
-      flowLink: false,
-      artistCount: 0,
       formFlag: [false, false],
-      artistFlag: false,
       artistSelect: 0,
+      test: 9,
     };
   },
   methods: {
@@ -124,8 +122,15 @@ export default {
       }
     },
     artistActive(i) {
-      this.artistCount++;
-      this.artistFlag = !this.artistFlag;
+      for (let index = 0; index < this.res.length; index++) {
+        if (this.res[index].done) {
+          this.res[index].done = !this.res[index].done;
+          this.test = index;
+        }
+      }
+      if (this.test !== i) {
+        this.res[i].done = !this.res[i].done;
+      }
       this.artistSelect = i;
       this.btnFlag = !this.btnFlag;
     },
