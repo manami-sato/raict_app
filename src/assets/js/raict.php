@@ -15,9 +15,6 @@ $products = [
 			"color" => [
 				"blue",
 			],
-			"member" => [
-				"ryuzie",
-			],
 		],
 		[
 			"artistId" => "2",
@@ -27,9 +24,6 @@ $products = [
 			"color" => [
 				"red",
 			],
-			"member" => [
-				"たなかあきお",
-			],
 		],
 		[
 			"artistId" => "3",
@@ -38,9 +32,6 @@ $products = [
 			"done" => false,
 			"color" => [
 				"purple",
-			],
-			"member" => [
-				"坂倉正樹",
 			],
 		],
 		[
@@ -52,13 +43,7 @@ $products = [
 				"blue",
 				"red",
 				"purple",
-				// "pink",
-			],
-			"member" => [
-				"ryuzie",
-				"たなかあきお",
-				"坂倉正樹",
-				// "momo",
+				"pink",
 			],
 		],
 	],

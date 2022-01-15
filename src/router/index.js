@@ -5,12 +5,13 @@ import Home from "../views/Home.vue";
 import Start from "../views/Start.vue";
 import Signin from "../views/Signin.vue";
 import Search from "../views/Search.vue";
-import Live from "../views/Live.vue";
+import LiveList from "../views/LiveList.vue";
 import Notice from "../views/Notice.vue";
 import Profile from "../views/Profile.vue";
 import Artist from "../views/Artist.vue";
 import Event from "../views/Event.vue";
 import Ticket from "../views/Ticket.vue";
+import Light from "../views/Light.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueHead);
@@ -41,8 +42,8 @@ const routes = [
   },
   {
     path: `${route}` + `live`,
-    name: "Live",
-    component: Live,
+    name: "LiveList",
+    component: LiveList,
   },
   {
     path: `${route}` + `notice`,
@@ -71,6 +72,12 @@ const routes = [
     name: "Ticket",
     component: Ticket,
     // props: (route) => ({ eventId: Number(route.params.eventId) }),
+  },
+  {
+    path: `${route}` + `live/:ticketId`,
+    name: "Light",
+    component: Light,
+    props: (route) => ({ ticketId: Number(route.params.ticketId) }),
   },
 ];
 

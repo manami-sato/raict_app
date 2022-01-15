@@ -3,9 +3,11 @@ main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touc
 	Back
 	ul(:class="{ticketTransition:transitionFlag}",ref="ticketImg").ticket__img
 		li(v-for="(data,i) in res",ref="ticketImgList").ticket__img--list
-			img(:src="`${path}img/${data.img}`")
+			router-link(:to="`${routerPath}live/${i+1}`")
+				img(:src="`${path}img/${data.img}`")
 	div.ticket__announce
-		p.ticket__announce--txt 横にスワイプでライブに参加！
+		p.ticket__announce--txt 横にスワイプでライブを選択！
+		//- router-link(:to="`${routerPath}live/${ticketId}`") ああああああ
 		p(ref="pictogram",v-if="pictogramFlag").ticket__announce--pictogram
 			svg(viewBox="0 0 178 140",xmlns="http://www.w3.org/2000/svg")
 				g(clip-path="url(#clip0_163_892)")
@@ -15,7 +17,7 @@ main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touc
 				defs
 					clipPath#clip0_163_892
 						rect
-	Navigation(value="Live",ref="nav")
+	Navigation(value="LiveList",ref="nav")
 </template>
 
 <script>
@@ -35,7 +37,7 @@ export default {
   data() {
     return {
       res: [],
-      id: 0,
+      ticketId: 0,
       ticketHeight: 0,
       img: "",
       pageX: 0,
@@ -57,42 +59,46 @@ export default {
       if (!this.transitionFlag) {
         this.transitionFlag = !this.transitionFlag;
       }
-      if (this.moveX > 10 && this.id > 0) {
-        this.id--;
+      if (this.moveX > 20 && this.ticketId > 0) {
+        this.ticketId--;
         this.$refs.ticketImg.style.transform = `translateX(${
-          -this.id * this.pageX
+          -this.ticketId * this.pageX
         }px)`;
-        // if (this.id == 0) {
+        // if (this.ticketId == 0) {
         //   let copyEl =
         //     this.$refs.ticketImgList[this.res.length - 1].cloneNode(true);
         //   this.$refs.ticketImg.prepend(copyEl);
-        // } else if (this.id < 0) {
+        // } else if (this.ticketId < 0) {
         //   console.log(this.transitionFlag);
         //   this.transitionFlag = !this.transitionFlag;
-        //   this.id = this.res.length - 1;
+        //   this.ticketId = this.res.length - 1;
         //   this.$refs.ticketImg.style.transform = `translateX(${
-        //     -this.id * this.pageX
+        //     -this.ticketId * this.pageX
         //   }px)`;
         // }
-      } else if (this.moveX < -10 && this.id < this.res.length - 1) {
-        this.id++;
+        return false;
+      } else if (this.moveX < -20 && this.ticketId < this.res.length - 1) {
+        this.ticketId++;
         this.$refs.ticketImg.style.transform = `translateX(${
-          -this.id * this.pageX
+          -this.ticketId * this.pageX
         }px)`;
-        // if (this.id == this.res.length - 1) {
+        // if (this.ticketId == this.res.length - 1) {
         //   let copyEl = this.$refs.ticketImgList[0].cloneNode(true);
         //   this.$refs.ticketImg.appendChild(copyEl);
-        // } else if (this.id == this.res.length) {
+        // } else if (this.ticketId == this.res.length) {
         //   console.log(this.transitionFlag);
         //   this.transitionFlag = !this.transitionFlag;
-        //   this.id = 0;
+        //   this.ticketId = 0;
         //   this.$refs.ticketImg.style.transform = `translateX(${-this.pageX}px)`;
         // }
+        return false;
+      } else {
+        return true;
       }
     },
   },
   mounted() {
-    this.id = this.$route.params.id;
+    this.ticketId = this.$route.params.ticketId;
     this.pageX = this.$refs.pageX.clientWidth;
     fetch(`${this.productsData}`)
       .then((res) => {
@@ -103,7 +109,7 @@ export default {
       });
     this.ticketHeight = common.height;
     this.$refs.ticketImg.style.transform = `translateX(${
-      -this.id * this.pageX
+      -this.ticketId * this.pageX
     }px)`;
     let pictogramDisplay = () => {
       if (this.pictogramFlag) {
@@ -142,7 +148,8 @@ export default {
       width: 100vw;
       color: #fff;
       font-weight: bold;
-      font-size: 2.4rem;
+      // font-size: 2.4rem;
+      font-size: 1.8rem;
       margin: 16px 0;
       position: relative;
       text-align: center;

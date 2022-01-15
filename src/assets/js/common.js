@@ -1,9 +1,12 @@
-let windowheight = window.innerHeight;
+let windowHeight = window.innerHeight;
+let windowWidth = window.innerWidth;
+let halfWidth = windowWidth / 2;
 let navHeight = 48;
-let height = windowheight - navHeight;
-let startHeight = windowheight;
+let height = windowHeight - navHeight;
+let startHeight = windowHeight;
 
 export default {
   height,
   startHeight,
+  halfWidth,
 };

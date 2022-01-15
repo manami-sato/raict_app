@@ -17,7 +17,7 @@
 		div(v-if="c == 0").signin__contents
 			div(:style="{backgroundImage:'url(' + path + 'img/signin_icon.png)'}").signin__contents--file
 				form(enctype="multipart/form-data")
-					input(type="file",accept="image/*",capture="camera",@change="inputIcon",value="",name="upload")
+					input(type="file",accept="image/*",capture="camera",value="",name="upload")
 			div.signin__contents--form
 				p 名前／ニックネーム
 				form
@@ -71,7 +71,6 @@ export default {
   data() {
     return {
       res: [],
-      imgPath: "",
       btnFlag: false,
       startHeight: 0,
       c: 0,
@@ -100,10 +99,6 @@ export default {
       if (this.c == 3) {
         this.btnFlag = true;
       }
-    },
-    inputIcon(value) {
-      this.imgPath = value.target.value;
-      // console.log(this.imgPath);
     },
     form1() {
       this.formFlag[0] = !this.formFlag[0];
