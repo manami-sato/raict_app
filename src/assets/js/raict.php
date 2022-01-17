@@ -12,8 +12,12 @@ $products = [
 			"name" => "ryuzie",
 			"img" => "search_artist_1.png",
 			"done" => false,
-			"color" => [
-				"blue",
+			"member" => [
+				[
+					"color" => "blue",
+					"name" => "ryuzie",
+					"flag" => false,
+				],
 			],
 		],
 		[
@@ -21,8 +25,12 @@ $products = [
 			"name" => "たなかあきお",
 			"img" => "search_artist_3.png",
 			"done" => false,
-			"color" => [
-				"red",
+			"member" => [
+				[
+					"color" => "red",
+					"name" => "たなかあきお",
+					"flag" => false,
+				],
 			],
 		],
 		[
@@ -30,8 +38,12 @@ $products = [
 			"name" => "坂倉正樹",
 			"img" => "search_artist_4.jpg",
 			"done" => false,
-			"color" => [
-				"purple",
+			"member" => [
+				[
+					"color" => "purple",
+					"name" => "坂倉正樹",
+					"flag" => false,
+				],
 			],
 		],
 		[
@@ -39,11 +51,27 @@ $products = [
 			"name" => "御三家",
 			"img" => "search_artist_2.png",
 			"done" => false,
-			"color" => [
-				"blue",
-				"red",
-				"purple",
-				"pink",
+			"member" => [
+				[
+					"color" => "blue",
+					"name" => "ryuzie",
+					"flag" => false,
+				],
+				[
+					"color" => "red",
+					"name" => "たなかあきお",
+					"flag" => false,
+				],
+				[
+					"color" => "purple",
+					"name" => "坂倉正樹",
+					"flag" => false,
+				],
+				[
+					"color" => "pink",
+					"name" => "momo",
+					"flag" => false,
+				],
 			],
 		],
 	],

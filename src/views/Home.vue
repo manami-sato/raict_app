@@ -3,13 +3,21 @@ main.home
 	Head(value="ホーム",ref="head")
 	nav.home__nav
 		ul
-			li(v-for="(item,i) in nav",:key="item[i]").home__nav--item.homeNavActive {{item}}
-	router-link(v-for="(data,i) in res",:to="`${routerPath}event/${i+1}`").home__event
-		div.home__event--img
-			img(:src="`${path}img/${data.img}`")
-		div.home__event--ttl {{data.ttl}}
-		div.home__event--name
-			div &#035;{{data.artistName}}
+			li(v-for="(item,i) in nav",:key="item[i]",:class="{homeNavActive:i == navId}",@click="homeNavAction(i)").home__nav--item {{item}}
+	div(v-if="navId == 0")
+		router-link(v-for="(data,i) in res",:to="`${routerPath}event/${i+1}`").home__event
+			div.home__event--img
+				img(:src="`${path}img/${data.img}`")
+			div.home__event--ttl {{data.ttl}}
+			div.home__event--name
+				div &#035;{{data.artistName}}
+	div(v-if="navId == 1")
+		router-link(v-for="(data,i) in favList",:to="`${routerPath}event/${i+1}`").home__event
+			div.home__event--img
+				img(:src="`${path}img/${data.img}`")
+			div.home__event--ttl {{data.ttl}}
+			div.home__event--name
+				div &#035;{{data.artistName}}
 	Navigation(value="Home",ref="nav")
 </template>
 
@@ -34,15 +42,33 @@ export default {
         "男性アイドル",
         "女性アイドル",
       ],
+      favId: 1,
+      favList: [],
+      navId: 0,
     };
   },
+  methods: {
+    homeNavAction(i) {
+      if (i <= 1) {
+        this.navId = i;
+      }
+    },
+  },
   mounted() {
+    if (this.$route.params.favId > 0) {
+      this.favId = this.$route.params.favId + 1;
+    }
     fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
       })
       .then((json) => {
         this.res = json.event;
+        for (let i = 0; i < this.res.length; i++) {
+          if (this.res[i].artistId == this.favId) {
+            this.favList.push(this.res[i]);
+          }
+        }
       });
   },
 };
@@ -56,10 +82,10 @@ export default {
     font-size: 1.3rem;
     font-weight: bold;
     padding: 16px;
-    overflow: scroll;
+    overflow: hidden;
     ul {
       display: flex;
-      width: calc(144px * 5);
+      width: max-content;
     }
     &--item {
       height: 36px;

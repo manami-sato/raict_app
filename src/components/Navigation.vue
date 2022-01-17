@@ -56,6 +56,7 @@ export default {
   padding: 4px 0;
   bottom: 0;
   left: 0;
+  z-index: 10;
   &__link {
     display: flex;
     li {

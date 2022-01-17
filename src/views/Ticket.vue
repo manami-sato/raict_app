@@ -1,5 +1,5 @@
 <template lang="pug">
-main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touchmove="ticketTouchMove",@touchend="ticketTouchEnd",ref="pageX").ticket
+main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touchmove="ticketTouchMove",@touchend="ticketTouchEnd").ticket
 	Back
 	ul(:class="{ticketTransition:transitionFlag}",ref="ticketImg").ticket__img
 		li(v-for="(data,i) in res",ref="ticketImgList").ticket__img--list
@@ -40,7 +40,6 @@ export default {
       ticketId: 0,
       ticketHeight: 0,
       img: "",
-      pageX: 0,
       startX: 0,
       moveX: 0,
       endX: 0,
@@ -62,7 +61,7 @@ export default {
       if (this.moveX > 20 && this.ticketId > 0) {
         this.ticketId--;
         this.$refs.ticketImg.style.transform = `translateX(${
-          -this.ticketId * this.pageX
+          -this.ticketId * common.windowWidth
         }px)`;
         // if (this.ticketId == 0) {
         //   let copyEl =
@@ -73,14 +72,14 @@ export default {
         //   this.transitionFlag = !this.transitionFlag;
         //   this.ticketId = this.res.length - 1;
         //   this.$refs.ticketImg.style.transform = `translateX(${
-        //     -this.ticketId * this.pageX
+        //     -this.ticketId * common.windowWidth
         //   }px)`;
         // }
         return false;
       } else if (this.moveX < -20 && this.ticketId < this.res.length - 1) {
         this.ticketId++;
         this.$refs.ticketImg.style.transform = `translateX(${
-          -this.ticketId * this.pageX
+          -this.ticketId * common.windowWidth
         }px)`;
         // if (this.ticketId == this.res.length - 1) {
         //   let copyEl = this.$refs.ticketImgList[0].cloneNode(true);
@@ -89,7 +88,7 @@ export default {
         //   console.log(this.transitionFlag);
         //   this.transitionFlag = !this.transitionFlag;
         //   this.ticketId = 0;
-        //   this.$refs.ticketImg.style.transform = `translateX(${-this.pageX}px)`;
+        //   this.$refs.ticketImg.style.transform = `translateX(${-common.windowWidth}px)`;
         // }
         return false;
       } else {
@@ -99,7 +98,6 @@ export default {
   },
   mounted() {
     this.ticketId = this.$route.params.ticketId;
-    this.pageX = this.$refs.pageX.clientWidth;
     fetch(`${this.productsData}`)
       .then((res) => {
         return res.json();
@@ -109,7 +107,7 @@ export default {
       });
     this.ticketHeight = common.height;
     this.$refs.ticketImg.style.transform = `translateX(${
-      -this.ticketId * this.pageX
+      -this.ticketId * common.windowWidth
     }px)`;
     let pictogramDisplay = () => {
       if (this.pictogramFlag) {
