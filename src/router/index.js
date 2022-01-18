@@ -17,7 +17,7 @@ Vue.use(VueRouter);
 Vue.use(VueHead);
 
 const route = "/";
-// /ecc/msatou/raict_app
+// /ecc/msatou/raict_app/
 
 const routes = [
   {

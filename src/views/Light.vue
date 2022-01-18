@@ -212,6 +212,7 @@ export default {
   img {
     z-index: 10;
     transform: scale(1.1);
+    animation: scaleAction 0.4s;
   }
   &::after {
     content: "";
@@ -222,7 +223,29 @@ export default {
     position: fixed;
     inset: 0;
     z-index: 3;
-    backdrop-filter: blur(4px);
+    animation: blurAction 0.4s;
+    backdrop-filter: blur(8px);
+  }
+}
+@keyframes blurAction {
+  0% {
+    background: rgba($color: #000000, $alpha: 0);
+    backdrop-filter: blur(0);
+  }
+  10% {
+    backdrop-filter: blur(3px);
+  }
+  100% {
+    background: rgba($color: #000000, $alpha: 0.3);
+    backdrop-filter: blur(8px);
+  }
+}
+@keyframes scaleAction {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
   }
 }
 </style>

@@ -32,7 +32,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-// @import "@/assets/scss/ress.scss";
-// @import "@/assets/scss/common.scss";
-</style>
+<style lang="scss"></style>

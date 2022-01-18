@@ -69,8 +69,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../public/css/slick-theme.css";
-@import "../../public/css/slick.css";
 @import "@/assets/scss/common.scss";
 .artist {
   @include headSet();

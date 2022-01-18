@@ -56,7 +56,7 @@ export default {
   },
   mounted() {
     if (this.$route.params.favId > 0) {
-      this.favId = this.$route.params.favId + 1;
+      this.favId = parseInt(this.$route.params.favId) + 1;
     }
     fetch(`${this.productsData}`)
       .then((res) => {

@@ -57,7 +57,7 @@
 			div.signin__completion--name {{res[artistSelect].name}}
 			div.signin__completion--txt さっそく最新のライブを確認しよう！
 		//- 
-		div(@click="btnClick",:class="{btnActive:btnFlag}").signin__btn
+		div(@click="btnClick",:class="{btnActive:true}").signin__btn
 			p {{btnTxt[c]}}
 			router-link(:to="{name:'Home',params:{ favId: `${artistSelect}`}}",v-if="c == 3").signin__btn--link
 </template>
@@ -71,8 +71,7 @@ export default {
   data() {
     return {
       res: [],
-      // btnFlag: false,
-      btnFlag: true,
+      btnFlag: false,
       startHeight: 0,
       c: 0,
       ttl: [
@@ -93,7 +92,7 @@ export default {
   },
   methods: {
     btnClick() {
-      // this.btnFlag = !this.btnFlag;
+      this.btnFlag = !this.btnFlag;
       if (this.c < 3) {
         this.c++;
       }
@@ -128,7 +127,7 @@ export default {
         this.res[i].done = !this.res[i].done;
       }
       this.artistSelect = i;
-      // this.btnFlag = !this.btnFlag;
+      this.btnFlag = !this.btnFlag;
     },
   },
   mounted() {
