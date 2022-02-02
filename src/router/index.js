@@ -12,11 +12,12 @@ import Artist from "../views/Artist.vue";
 import Event from "../views/Event.vue";
 import Ticket from "../views/Ticket.vue";
 import Light from "../views/Light.vue";
+import WatchLive from "../views/WatchLive.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueHead);
 
-const route = "/";
+const route = "/ecc/msatou/raict_app/";
 // /ecc/msatou/raict_app/
 
 const routes = [
@@ -26,58 +27,63 @@ const routes = [
     component: Start,
   },
   {
-    path: `${route}` + `home`,
+    path: `${route}home`,
     name: "Home",
     component: Home,
   },
   {
-    path: `${route}` + `signin`,
+    path: `${route}signin`,
     name: "Signin",
     component: Signin,
   },
   {
-    path: `${route}` + `search`,
+    path: `${route}search`,
     name: "Search",
     component: Search,
   },
   {
-    path: `${route}` + `live`,
+    path: `${route}live-list`,
     name: "LiveList",
     component: LiveList,
   },
   {
-    path: `${route}` + `notice`,
+    path: `${route}notice`,
     name: "Notice",
     component: Notice,
   },
   {
-    path: `${route}` + `profile`,
+    path: `${route}profile`,
     name: "Profile",
     component: Profile,
   },
   {
-    path: `${route}` + `search/:artistId`,
+    path: `${route}search/:artistId`,
     name: "Artist",
     component: Artist,
     props: (route) => ({ artistId: Number(route.params.artistId) }),
   },
   {
-    path: `${route}` + `event/:eventId`,
+    path: `${route}event/:eventId`,
     name: "Event",
     component: Event,
     props: (route) => ({ eventId: Number(route.params.eventId) }),
   },
   {
-    path: `${route}` + `ticket`,
+    path: `${route}ticket`,
     name: "Ticket",
     component: Ticket,
-    // props: (route) => ({ eventId: Number(route.params.eventId) }),
   },
   {
-    path: `${route}` + `live/:ticketId`,
+    path: `${route}light/:ticketId`,
     name: "Light",
     component: Light,
     props: (route) => ({ ticketId: Number(route.params.ticketId) }),
+  },
+  {
+    path: `${route}live/:colorId`,
+    name: "WatchLive",
+    component: WatchLive,
+    props: (route) => ({ colorId: Number(route.params.colorId) }),
   },
 ];
 

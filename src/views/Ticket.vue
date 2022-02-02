@@ -3,11 +3,10 @@ main(:style="{minHeight:ticketHeight+`px`}",@touchstart="ticketTouchStart",@touc
 	Back
 	ul(:class="{ticketTransition:transitionFlag}",ref="ticketImg").ticket__img
 		li(v-for="(data,i) in res",ref="ticketImgList").ticket__img--list
-			router-link(:to="`${routerPath}live/${i+1}`")
+			router-link(:to="`${routerPath}light/${i+1}`")
 				img(:src="`${path}img/${data.img}`")
 	div.ticket__announce
 		p.ticket__announce--txt 横にスワイプでライブを選択！
-		//- router-link(:to="`${routerPath}live/${ticketId}`") ああああああ
 		p(ref="pictogram",v-if="pictogramFlag").ticket__announce--pictogram
 			svg(viewBox="0 0 178 140",xmlns="http://www.w3.org/2000/svg")
 				g(clip-path="url(#clip0_163_892)")

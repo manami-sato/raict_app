@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.470eb5751bba6f5c9f92503cb91c9ff3.js"
+  "precache-manifest.6f5f6422d09b3fc581377ad40814f382.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "raict"});

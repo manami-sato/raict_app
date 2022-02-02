@@ -231,6 +231,88 @@ $products = [
 			"preStart" => "18:00",
 		],
 	],
+	"color" => [
+		[
+			"id" => 1,
+			"color" => "red",
+			"bg" => [
+				"#FF6D8F",
+				"#FF2A2A",
+			],
+		],
+		[
+			"id" => 2,
+			"color" => "blue",
+			"bg" => [
+				"#668CFF",
+				"#144EFF",
+			],
+		],
+		[
+			"id" => 3,
+			"color" => "green",
+			"bg" => [
+				"",
+				"",
+			],
+		],
+		[
+			"id" => 4,
+			"color" => "yellow",
+			"bg" => [
+				"",
+				"",
+			],
+		],
+		[
+			"id" => 5,
+			"color" => "pink",
+			"bg" => [
+				"#FFAFFF",
+				"#E96BFF",
+			],
+		],
+		[
+			"id" => 6,
+			"color" => "orange",
+			"bg" => [
+				"",
+				"",
+			],
+		],
+		[
+			"id" => 7,
+			"color" => "purple",
+			"bg" => [
+				"#AA7FFA",
+				"#6614FF",
+			],
+		],
+		[
+			"id" => 8,
+			"color" => "skyblue",
+			"bg" => [
+				"",
+				"",
+			],
+		],
+		[
+			"id" => 9,
+			"color" => "yellowGreen",
+			"bg" => [
+				"",
+				"",
+			],
+		],
+		[
+			"id" => 10,
+			"color" => "white",
+			"bg" => [
+				"",
+				"",
+			],
+		],
+	]
 ];
 
 print json_encode($products);

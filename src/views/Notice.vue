@@ -1,7 +1,7 @@
 <template lang="pug">
 main.notice
 	Head(value="通知",ref="head")
-	div(v-for="i in 4").notice__list
+	div(v-for="i in 6").notice__list
 		div.notice__list--icon
 			img(:src="`${path}img/${list.icon}`")
 		p.notice__list--msg {{list.msg}}

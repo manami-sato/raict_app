@@ -2,12 +2,13 @@
 main(:style="{minHeight:lightHeight+`px`}").light
 	h1.light__headline ペンライトを選択する
 	ul(ref="lightImg").light__choice
-		li(v-for="(data,i) in res2",ref="lightImgList",@click="colorSelect(i)").light__choice--member
-			div.light__choice--member--img
-				img(:src="`${path}img/profile_icon.png`")
-			p.light__choice--member--name {{data.name}}
-			div(ref="lightImgWidth",:class="{colorActive:data.flag}").light__choice--member--color
-				img(:src="`${path}img/light_${data.color}.png`")
+		li(v-for="(data,i) in res2",ref="lightImgList").light__choice--member
+			router-link(:to="`${routerPath}live/${res2[i].color}`")
+				div.light__choice--member--img
+					img(:src="`${path}img/profile_icon.png`")
+				p.light__choice--member--name {{data.name}}
+				div(ref="lightImgWidth",:class="{colorActive:data.flag}").light__choice--member--color
+					img(:src="`${path}img/light_${data.color}.png`")
 	div.light__select
 		div(@click="selectLeft",:class="{selectDisActive:leftFlag}").light__select--left
 			svg(version="1.1",xmlns="http://www.w3.org/2000/svg",xmlns:xlink="http://www.w3.org/1999/xlink",x="0px",y="0px",viewBox="0 0 10 18.8",style="enable-background:new 0 0 10 18.8;",xml:space="preserve")
@@ -37,6 +38,7 @@ export default {
     return {
       res1: [],
       res2: [],
+      res3: [],
       id: 0,
       lightHeight: 0,
       colorWidth: 0,
@@ -45,6 +47,7 @@ export default {
       leftFlag: false,
       rightFlag: false,
       choice: 0,
+      colorId: 1,
     };
   },
   mounted() {
@@ -57,6 +60,7 @@ export default {
       .then((json) => {
         this.res1 = json.event[this.id];
         this.res2 = json.artist[this.res1.artistId - 1].member;
+        this.res3 = json.color;
         if (this.selectCount == 0) {
           this.leftFlag = !this.leftFlag;
         }
@@ -67,9 +71,6 @@ export default {
       });
   },
   methods: {
-    colorSelect(i) {
-      this.res2[i].flag = !this.res2[i].flag;
-    },
     selectLeft() {
       if (this.selectCount !== 0) {
         if (this.rightFlag) {
