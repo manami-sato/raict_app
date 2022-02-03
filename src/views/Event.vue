@@ -4,20 +4,20 @@ main.event
 		div.event__head--img
 			img(:src="`${path}img/${res.img}`")
 		Back
-		section.event__info
-			h1.event__info--ttl {{res.ttl}}
-			section
-				h2.event__info--headline 公演概要
-				p.event__info--date
-					span {{fromYear}}
-					span {{fromMonth}}
-					span {{fromDay}}
-					span {{toYear}}
-					span {{toMonth}}
-					span {{toDay}}
-				div.event__info--time 開演 {{start}} （待機開始 {{preStart}}）
+	section.event__info
+		h1.event__info--ttl {{res.ttl}}
+		section
+			h2.event__info--headline 公演概要
+			p.event__info--date
+				span {{fromYear}}
+				span {{fromMonth}}
+				span {{fromDay}}
+				span {{toYear}}
+				span {{toMonth}}
+				span {{toDay}}
+			div.event__info--time 開演 {{start}} （待機開始 {{preStart}}）
 		div.event__ticket 購入する
-	//- Lives(:value="$route.params.eventId")
+	Lives(:value="$route.params.eventId")
 	Navigation(value="Search",ref="nav")
 </template>
 
