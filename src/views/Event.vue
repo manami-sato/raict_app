@@ -92,7 +92,6 @@ export default {
       display: flex;
       align-items: center;
       color: #7b7b7b;
-      font-size: 1.3rem;
       &::before {
         content: "";
         display: block;

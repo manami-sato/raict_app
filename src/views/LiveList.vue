@@ -1,7 +1,7 @@
 <template lang="pug">
 main.liveList
 	h1.liveList__headline ようこそ！あなたの<br>参加しているライブです
-	router-link(v-for="(data,i) in res",:to="{name:'Ticket',params:{ ticketId: `${i}`}}").liveList__event
+	router-link(v-for="(data,i) in res",:to="{name:'Ticket',params:{ ticketId: `${i}`}}",:key="i").liveList__event
 		div.liveList__event--img
 			img(:src="`${path}img/${data.img}`")
 		div.liveList__event--ttl {{data.ttl}}
@@ -72,7 +72,6 @@ export default {
     }
     &--name {
       display: flex;
-      font-size: 1.3rem;
       div {
         margin-right: 8px;
         &:last-of-type {

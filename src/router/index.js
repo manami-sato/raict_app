@@ -12,6 +12,7 @@ import Artist from "../views/Artist.vue";
 import Event from "../views/Event.vue";
 import Ticket from "../views/Ticket.vue";
 import Light from "../views/Light.vue";
+import ShakeLight from "../views/ShakeLight.vue";
 import WatchLive from "../views/WatchLive.vue";
 
 Vue.use(VueRouter);
@@ -81,6 +82,18 @@ const routes = [
   },
   {
     path: `${route}live/:colorId`,
+    name: "ShakeLight",
+    component: ShakeLight,
+    props: (route) => ({ colorId: Number(route.params.colorId) }),
+  },
+  // {
+  //   path: `${route}`,
+  //   name: "WatchLive",
+  //   component: WatchLive,
+  //   // props: (route) => ({ colorId: Number(route.params.colorId) }),
+  // },
+  {
+    path: `${route}movie/:colorId`,
     name: "WatchLive",
     component: WatchLive,
     props: (route) => ({ colorId: Number(route.params.colorId) }),

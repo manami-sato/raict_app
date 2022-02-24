@@ -62,33 +62,12 @@ export default {
         this.$refs.ticketImg.style.transform = `translateX(${
           -this.ticketId * common.windowWidth
         }px)`;
-        // if (this.ticketId == 0) {
-        //   let copyEl =
-        //     this.$refs.ticketImgList[this.res.length - 1].cloneNode(true);
-        //   this.$refs.ticketImg.prepend(copyEl);
-        // } else if (this.ticketId < 0) {
-        //   console.log(this.transitionFlag);
-        //   this.transitionFlag = !this.transitionFlag;
-        //   this.ticketId = this.res.length - 1;
-        //   this.$refs.ticketImg.style.transform = `translateX(${
-        //     -this.ticketId * common.windowWidth
-        //   }px)`;
-        // }
         return false;
       } else if (this.moveX < -20 && this.ticketId < this.res.length - 1) {
         this.ticketId++;
         this.$refs.ticketImg.style.transform = `translateX(${
           -this.ticketId * common.windowWidth
         }px)`;
-        // if (this.ticketId == this.res.length - 1) {
-        //   let copyEl = this.$refs.ticketImgList[0].cloneNode(true);
-        //   this.$refs.ticketImg.appendChild(copyEl);
-        // } else if (this.ticketId == this.res.length) {
-        //   console.log(this.transitionFlag);
-        //   this.transitionFlag = !this.transitionFlag;
-        //   this.ticketId = 0;
-        //   this.$refs.ticketImg.style.transform = `translateX(${-common.windowWidth}px)`;
-        // }
         return false;
       } else {
         return true;

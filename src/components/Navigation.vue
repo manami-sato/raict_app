@@ -52,6 +52,7 @@ export default {
   width: 100vw;
   background: #fff;
   border-top: $background 1px solid;
+  font-size: 1rem;
   position: fixed;
   padding: 4px 0;
   bottom: 0;

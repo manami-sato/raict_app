@@ -8,4 +8,5 @@ export default {
   height,
   startHeight,
   windowWidth,
+  windowHeight,
 };

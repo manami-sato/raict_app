@@ -62,7 +62,6 @@ export default {
     height: 64px;
     background: #fff;
     border-radius: 8px;
-    font-size: 1.3rem;
     font-weight: bold;
     margin: 32px auto 24px;
     padding: 0 20px;
@@ -93,7 +92,6 @@ export default {
     }
     &--content {
       background: #fff;
-      font-size: 1.3rem;
       border-radius: 8px;
       margin: 0 0 24px;
       padding: 4px 16px;

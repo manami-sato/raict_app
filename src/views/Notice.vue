@@ -54,7 +54,6 @@ export default {
       }
     }
     &--msg {
-      font-size: 1.3rem;
       margin: 8px 0;
     }
     &--date {

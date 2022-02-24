@@ -5,14 +5,14 @@ main.home
 		ul
 			li(v-for="(item,i) in nav",:key="item[i]",:class="{homeNavActive:i == navId}",@click="homeNavAction(i)").home__nav--item {{item}}
 	div(v-if="navId == 0")
-		router-link(v-for="(data,i) in res",:to="`${routerPath}event/${i+1}`").home__event
+		router-link(v-for="(data,i) in res",:to="`${routerPath}event/${i+1}`",:key="i").home__event
 			div.home__event--img
 				img(:src="`${path}img/${data.img}`")
 			div.home__event--ttl {{data.ttl}}
 			div.home__event--name
 				div &#035;{{data.artistName}}
 	div(v-if="navId == 1")
-		router-link(v-for="(data,i) in favList",:to="`${routerPath}event/${i+1}`").home__event
+		router-link(v-for="(data,i) in favList",:to="`${routerPath}event/${i+1}`",:key="i").home__event
 			div.home__event--img
 				img(:src="`${path}img/${data.img}`")
 			div.home__event--ttl {{data.ttl}}
@@ -79,7 +79,6 @@ export default {
 .home {
   padding: 56px 0;
   &__nav {
-    font-size: 1.3rem;
     font-weight: bold;
     padding: 16px;
     overflow: hidden;
@@ -116,7 +115,6 @@ export default {
     }
     &--name {
       display: flex;
-      font-size: 1.3rem;
       div {
         margin-right: 8px;
         &:last-of-type {

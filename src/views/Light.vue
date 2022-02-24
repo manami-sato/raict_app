@@ -82,7 +82,7 @@ export default {
         }px`;
         if (this.selectCount == 0) {
           this.leftFlag = true;
-        }
+       }
       }
     },
     selectRight() {

@@ -75,7 +75,6 @@ header {
   }
   &__flow {
     display: flex;
-    font-size: 1.3rem;
     width: 90%;
     margin: 0 auto;
     &--on {
