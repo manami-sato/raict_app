@@ -1,4 +1,6 @@
 module.exports = {
+  outputDir: "docs",
+  assetsDir: "./",
   publicPath: "./",
   pwa: {
     name: "raict",
